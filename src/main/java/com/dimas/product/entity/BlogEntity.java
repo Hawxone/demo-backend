@@ -29,7 +29,7 @@ public class BlogEntity {
     String content;
 
     @Lob
-    String image;
+    byte[] image;
 
     String posted;
 

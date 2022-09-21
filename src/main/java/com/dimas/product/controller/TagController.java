@@ -52,7 +52,7 @@ public class TagController {
                         .content(blog.getContent())
                         .id(blog.getId())
                         .posted(blog.getPosted())
-                        .image(blog.getImage())
+                        .image(Arrays.toString(blog.getImage()))
                         .subtitle(blog.getSubtitle())
                         .build()).collect(Collectors.toList()));
 

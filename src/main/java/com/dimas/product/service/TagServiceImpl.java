@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,7 +54,7 @@ public class TagServiceImpl implements TagService {
                                 Blog.builder()
                                 .id(blogEntity.getId())
                                 .title(blogEntity.getTitle())
-                                .image(blogEntity.getImage())
+                                .image(Arrays.toString(blogEntity.getImage()))
                                 .posted(blogEntity.getPosted())
                                 .content(blogEntity.getContent())
                                 .subtitle(blogEntity.getSubtitle()).build()
