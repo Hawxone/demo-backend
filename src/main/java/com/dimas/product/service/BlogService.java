@@ -12,4 +12,6 @@ public interface BlogService {
     Blog getBlogById(String id);
 
     Blog updateBlog(Blog updateBlog, String id) throws Exception;
+
+    boolean deleteBlog(String id);
 }

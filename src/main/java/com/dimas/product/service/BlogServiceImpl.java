@@ -7,7 +7,6 @@ import com.dimas.product.model.Tag;
 import com.dimas.product.repository.BlogEntityRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -115,7 +114,7 @@ public class BlogServiceImpl implements BlogService {
 
         try {
             BlogEntity blogEntity = blogEntityRepository.findById(id).get();
-            System.out.println(blogEntity.getTitle());
+
             blogEntity.setPosted(new Date().toString());
             blogEntity.setContent(updateBlog.getContent());
             blogEntity.setTitle(updateBlog.getTitle());
@@ -129,12 +128,20 @@ public class BlogServiceImpl implements BlogService {
                 return tagEntity;
             }).toList());
 
-
-
         }catch (Exception e){
             throw new Exception("could not update post : "+ e);
         }
 
         return updateBlog;
+    }
+
+    @Override
+    public boolean deleteBlog(String id) {
+
+        BlogEntity blogEntity = blogEntityRepository.findById(id).get();
+
+        blogEntityRepository.delete(blogEntity);
+
+        return true;
     }
 }

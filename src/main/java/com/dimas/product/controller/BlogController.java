@@ -6,13 +6,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.springframework.http.ResponseEntity;
-import javax.transaction.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @CrossOrigin(value = "http://localhost:3000")
 @RestController
@@ -119,6 +115,16 @@ public class BlogController {
         updateBlog = blogService.updateBlog(updateBlog,id);
 
         return ResponseEntity.ok(updateBlog);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String,Boolean>> deleteBlog(@PathVariable("id") String id){
+
+        boolean deleted = false;
+        deleted = blogService.deleteBlog(id);
+        Map<String,Boolean> response =  new HashMap<>();
+        response.put("deleted",deleted);
+
+        return ResponseEntity.ok(response);
     }
 
 }
