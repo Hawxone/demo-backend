@@ -5,7 +5,6 @@ import com.dimas.product.model.Book;
 import com.dimas.product.repository.BookEntityRepository;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,25 +12,25 @@ import java.util.stream.Collectors;
 @Service
 public class BookServiceImpl implements BookService {
 
-    private BookEntityRepository bookEntityRepository;
+    private final BookEntityRepository bookEntityRepository;
 
     public BookServiceImpl(BookEntityRepository bookEntityRepository) {
         this.bookEntityRepository = bookEntityRepository;
     }
 
     @Override
-    public void saveBook(List<Book> bookList) throws Exception {
+    public void saveBook(Book bookList) throws Exception {
 
         try {
-            for (int index = 0; index < bookList.size(); index++) {
+
 
                 BookEntity entity = new BookEntity();
-                entity.setTitle(bookList.get(index).getTitle());
-                entity.setImageOrder(bookList.get(index).getImageOrder());
-                entity.setImage(bookList.get(index).getImage().getBytes());
+                entity.setTitle(bookList.getTitle());
+                entity.setImageOrder(bookList.getImageOrder());
+                entity.setImageUrl(bookList.getImageUrl());
                 bookEntityRepository.save(entity);
 
-            }
+
 
         }catch (Exception e){
             throw new Exception("could not save item " + e);
@@ -46,7 +45,7 @@ public class BookServiceImpl implements BookService {
 
         Book book = new Book();
         book.setId(bookEntity.getId());
-        book.setImage("data:image/png;base64,"+new String(bookEntity.getImage(), StandardCharsets.UTF_8));
+        book.setImageUrl(bookEntity.getImageUrl());
         book.setImageOrder(bookEntity.getImageOrder());
 
         return book;
@@ -65,7 +64,7 @@ public class BookServiceImpl implements BookService {
                         .id(bookEntity.getId())
                         .title(bookEntity.getTitle())
                         .imageOrder(bookEntity.getImageOrder())
-                        .image("data:image/png;base64,"+new String(bookEntity.getImage(),StandardCharsets.UTF_8))
+                        .imageUrl(bookEntity.getImageUrl())
                         .build()
         ).collect(Collectors.toList());
 

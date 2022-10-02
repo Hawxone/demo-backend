@@ -32,19 +32,18 @@ public class BookController {
 
         ZipInputStream zis = new ZipInputStream(file.getInputStream());
         ZipEntry ze = zis.getNextEntry();
-        int i = 0;
+
         while (ze != null){
-            int buffer = 0;
             String filename = ze.getName();
             String stripped = filename.replaceAll("\\D+","");
-            String bytes = Base64.getEncoder().encodeToString(zis.readAllBytes());
+
             Book newBook = new Book();
             newBook.setTitle(filename);
-            newBook.setImage(bytes);
+            newBook.setImageUrl("http://localhost:8081/api/v1/image/"+stripped);
             newBook.setImageOrder(Integer.parseInt(stripped));
             bookList.add(newBook);
 
-            bookService.saveBook(bookList);
+            bookService.saveBook(newBook);
 
             ze = zis.getNextEntry();
         }

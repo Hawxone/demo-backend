@@ -22,8 +22,27 @@ public class BlogController {
     }
 
     @GetMapping
-    public List<Blog> getAllBlogs(){
-        return blogService.getAllBlogs();
+    public ResponseEntity<Map<?,?>> getAllBlogs(){
+
+        Map<String,Object> response = new HashMap<>();
+
+        List<Blog> blogs = blogService.getAllBlogs();
+
+        response.put("blogs",blogs);
+        response.put("currentPage",0);
+        response.put("totalItems",0);
+        response.put("totalpages",0);
+
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/paginated")
+    public ResponseEntity<Map<String,Object>> getAllBlogsPaginated(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "3") int size){
+
+        Map<String,Object> blogs = blogService.getAllBlogsPaginated(page,size);
+        System.out.println(page);
+        return ResponseEntity.ok(blogs);
     }
 
     @GetMapping("/{id}")
@@ -41,8 +60,10 @@ public class BlogController {
         String title = requestParam.get("title");
         String subtitle = requestParam.get("subtitle");
         String content = requestParam.get("content");
-        String file = requestParam.get("file");
+        String imageUrl = requestParam.get("image");
         String tags = requestParam.get("tags");
+
+
 
         JsonArray ja = new Gson().fromJson(tags,JsonArray.class);
         List<Tag> tagList = new ArrayList<>();
@@ -63,7 +84,7 @@ public class BlogController {
 
         Blog saveBlog = Blog.builder()
                 .id(null)
-                .file(file)
+                .imageUrl(imageUrl)
                 .posted(new Date().toString())
                 .title(title)
                 .content(content)

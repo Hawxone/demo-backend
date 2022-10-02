@@ -10,19 +10,20 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name="books")
+@Table(name="roles")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookEntity {
+public class RoleEntity {
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid",strategy = "uuid2")
-    String id;
-    String title;
-    Integer imageOrder;
-    String imageUrl;
+    private String id;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private ERole name;
 
 }

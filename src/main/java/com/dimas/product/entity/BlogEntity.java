@@ -27,9 +27,7 @@ public class BlogEntity {
     String title;
     String subtitle;
     String content;
-
-    @Lob
-    byte[] image;
+    String imageUrl;
 
     String posted;
 

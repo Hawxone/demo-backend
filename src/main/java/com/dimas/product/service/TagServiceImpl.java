@@ -54,7 +54,7 @@ public class TagServiceImpl implements TagService {
                                 Blog.builder()
                                 .id(blogEntity.getId())
                                 .title(blogEntity.getTitle())
-                                .image(Arrays.toString(blogEntity.getImage()))
+                                .imageUrl(blogEntity.getImageUrl())
                                 .posted(blogEntity.getPosted())
                                 .content(blogEntity.getContent())
                                 .subtitle(blogEntity.getSubtitle()).build()

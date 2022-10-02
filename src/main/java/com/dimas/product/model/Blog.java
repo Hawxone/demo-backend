@@ -17,7 +17,7 @@ public class Blog {
     String title;
     String subtitle;
     String content;
-    String image;
+    String imageUrl;
     String file;
     String posted;
     List<Tag> tags;

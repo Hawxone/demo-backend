@@ -13,6 +13,6 @@ public class Book {
 
     String id;
     String title;
-    String image;
+    String imageUrl;
     Integer imageOrder;
 }
