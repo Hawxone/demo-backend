@@ -13,6 +13,5 @@ public class Book {
 
     String id;
     String title;
-    String imageUrl;
     Integer imageOrder;
 }

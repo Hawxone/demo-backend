@@ -5,7 +5,7 @@ import com.dimas.product.model.Book;
 import java.util.List;
 
 public interface BookService {
-    void saveBook(Book bookList) throws Exception;
+    Book saveBook(Book bookList) throws Exception;
 
     Book getBookByOrder(Integer order);
 

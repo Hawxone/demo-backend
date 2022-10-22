@@ -1,7 +1,6 @@
 package com.dimas.product.controller;
 
 import com.dimas.product.model.Product;
-import com.dimas.product.model.UploadFile;
 import com.dimas.product.service.ProductService;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.*;
 
 @CrossOrigin(value = "http://localhost:3000")
@@ -20,13 +18,13 @@ import java.util.*;
 @RequestMapping("/api/v1/product")
 public class ProductController {
 
-    private ProductService productService;
+    private final ProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
-    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+
 
     @GetMapping
     public List<Product> getProduct(){
@@ -35,7 +33,6 @@ public class ProductController {
 
     @PostMapping
     public Product addProduct(@RequestBody Product product) throws Exception{
-
 
         Product saveProduct = Product.builder()
                 .name(product.getName())

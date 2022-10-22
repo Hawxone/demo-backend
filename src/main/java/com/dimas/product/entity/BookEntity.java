@@ -23,6 +23,5 @@ public class BookEntity {
     String id;
     String title;
     Integer imageOrder;
-    String imageUrl;
 
 }

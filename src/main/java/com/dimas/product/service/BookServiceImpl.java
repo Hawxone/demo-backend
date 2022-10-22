@@ -19,23 +19,19 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void saveBook(Book bookList) throws Exception {
+    public Book saveBook(Book bookList) throws Exception {
 
         try {
-
 
                 BookEntity entity = new BookEntity();
                 entity.setTitle(bookList.getTitle());
                 entity.setImageOrder(bookList.getImageOrder());
-                entity.setImageUrl(bookList.getImageUrl());
                 bookEntityRepository.save(entity);
-
-
 
         }catch (Exception e){
             throw new Exception("could not save item " + e);
         }
-
+        return bookList;
     }
 
     @Override
@@ -45,7 +41,7 @@ public class BookServiceImpl implements BookService {
 
         Book book = new Book();
         book.setId(bookEntity.getId());
-        book.setImageUrl(bookEntity.getImageUrl());
+        book.setTitle(bookEntity.getTitle());
         book.setImageOrder(bookEntity.getImageOrder());
 
         return book;
@@ -64,7 +60,6 @@ public class BookServiceImpl implements BookService {
                         .id(bookEntity.getId())
                         .title(bookEntity.getTitle())
                         .imageOrder(bookEntity.getImageOrder())
-                        .imageUrl(bookEntity.getImageUrl())
                         .build()
         ).collect(Collectors.toList());
 

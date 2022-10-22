@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -18,11 +17,25 @@ import java.util.zip.ZipInputStream;
 @RequestMapping("/api/v1/book")
 public class BookController {
 
-    private BookService bookService;
+    private final BookService bookService;
 
     public BookController(BookService bookService) {
 
         this.bookService = bookService;
+    }
+
+    @PostMapping("/single")
+    public Book addBook(@RequestBody Book book) throws Exception {
+        System.out.println(book);
+        String order = book.getTitle().replaceAll("\\D+","");
+        Book saveBook_co = Book.builder()
+                .title(book.getTitle())
+                .imageOrder(Integer.parseInt(order))
+                .build();
+
+        bookService.saveBook(saveBook_co);
+
+        return null;
     }
 
     @PostMapping
@@ -39,7 +52,6 @@ public class BookController {
 
             Book newBook = new Book();
             newBook.setTitle(filename);
-            newBook.setImageUrl("http://localhost:8081/api/v1/image/"+stripped);
             newBook.setImageOrder(Integer.parseInt(stripped));
             bookList.add(newBook);
 
