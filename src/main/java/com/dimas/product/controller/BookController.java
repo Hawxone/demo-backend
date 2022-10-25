@@ -3,12 +3,14 @@ package com.dimas.product.controller;
 
 import com.dimas.product.model.Book;
 import com.dimas.product.service.BookService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -24,21 +26,23 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @PostMapping("/single")
-    public Book addBook(@RequestBody Book book) throws Exception {
-        System.out.println(book);
-        String order = book.getTitle().replaceAll("\\D+","");
+    @PostMapping(path = "/single",consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Book addBook(@RequestParam Map<String,String> requestParam, @RequestParam Map<String,MultipartFile> files) throws Exception {
+
+
+
+        String order = requestParam.get("name").replaceAll("\\D+","");
         Book saveBook_co = Book.builder()
-                .title(book.getTitle())
+                .title(requestParam.get("name"))
                 .imageOrder(Integer.parseInt(order))
                 .build();
 
-        bookService.saveBook(saveBook_co);
+        bookService.saveBook(saveBook_co,files.get("file"));
 
         return null;
     }
 
-    @PostMapping
+/*    @PostMapping
     public List<Book> uploadBooks(@RequestParam("file") MultipartFile file) throws Exception {
 
         List<Book> bookList = new ArrayList<>();
@@ -55,13 +59,13 @@ public class BookController {
             newBook.setImageOrder(Integer.parseInt(stripped));
             bookList.add(newBook);
 
-            bookService.saveBook(newBook);
+            bookService.saveBook(newBook,file);
 
             ze = zis.getNextEntry();
         }
 
         return bookList;
-    }
+    }*/
 
     @GetMapping("/{order}")
     @Transactional

@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface BookEntityRepository extends JpaRepository<BookEntity,String> {
 
     Optional<BookEntity> findBookEntityByImageOrder(Integer imageOrder);
+    Optional<BookEntity> findBookEntityByTitle(String title);
 }
