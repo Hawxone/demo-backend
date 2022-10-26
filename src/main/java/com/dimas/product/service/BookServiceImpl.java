@@ -36,6 +36,7 @@ public class BookServiceImpl implements BookService {
 
         String path = String.format("%s/%s", BucketName.BUCKET.getBucketName(),"galleries");
 
+
         try {
             fileStoreService.save(path,file.getOriginalFilename(),Optional.of(metadata),file.getInputStream());
         }catch (IOException e){

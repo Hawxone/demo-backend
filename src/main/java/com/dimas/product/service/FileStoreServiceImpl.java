@@ -25,10 +25,11 @@ public class FileStoreServiceImpl implements FileStoreService {
         ObjectMetadata objectMetadata = new ObjectMetadata();
 
         optionalMetadata.ifPresent(stringStringMap -> {
-            if (!stringStringMap.isEmpty()){
+          /*  if (!stringStringMap.isEmpty()){
                 // stringStringMap.forEach((key,value)->objectMetadata.addUserMetadata(key,value));
                 stringStringMap.forEach(objectMetadata::addUserMetadata);
-            }
+            }*/
+            objectMetadata.setContentType("image/jpeg");
         });
 
         try {

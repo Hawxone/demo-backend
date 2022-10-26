@@ -2,7 +2,7 @@ package com.dimas.product.bucket;
 
 public enum BucketName {
 
-    BUCKET("a.dimasblog.my.id");
+    BUCKET("dimasblog");
 
     private final String bucketName;
 
